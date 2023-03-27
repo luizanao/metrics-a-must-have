@@ -1,0 +1,22 @@
+groups:
+- name: Hardware alerts
+  rules:
+  - alert: Node Down
+    expr: up{job="node_exporter"} == 0
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      title: Node {{ $labels.instance }} is down
+      description: No metrics from {{ $labels.job }} on {{ $labels.instance }} for more than 1 minutes.
+
+- name: Application
+  rules:
+  - alert: Error Increasing
+    expr: 100 * ((sum(rate(http_request_duration_seconds_count{http_status="500"}[1m])) OR on() vector(0))) / 100 * ((sum(rate(http_request_duration_seconds_count{}[1m])) OR on() vector(0))) >= 2
+    for: 15s
+    labels:
+      severity: warning
+    annotations:
+      title: 500 errors {{ $labels.instance }} increasing
+      description: 500 errors on {{ $labels.job }} - is increasing.

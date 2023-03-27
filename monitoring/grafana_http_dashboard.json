@@ -1,0 +1,1103 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "$$hashKey": "object:25",
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "iteration": 1654382186826,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "$$hashKey": "object:383",
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "Total Requests",
+          "refId": "A"
+        }
+      ],
+      "title": "Total requests per window",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "$$hashKey": "object:383",
+              "id": 0,
+              "op": "=",
+              "text": "N/A",
+              "type": 1,
+              "value": "null"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 7,
+        "x": 6,
+        "y": 0
+      },
+      "id": 15,
+      "links": [],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
+          "expr": "sum(rate(http_request_duration_seconds_count{job=~'$services", path=~'$paths", method=~'$methods"
+        }[$window
+        ]))","format": "time_series","interval": "",
+        "legendFormat": "Total Requests",
+        "refId": "A",
+      }
+    ],
+    "title": "Request per second",
+    "type": "stat"
+  },
+  {
+    "datasource": {
+      "type": "prometheus",
+      "uid": "${datasource}"
+    },
+    "description": "",
+    "fieldConfig": {
+      "defaults": {
+        "mappings": [],
+        "thresholds": {
+          "mode": "absolute",
+          "steps": [
+            {
+              "color": "green",
+              "value": null
+            },
+            {
+              "color": "red",
+              "value": 2
+            }
+          ]
+        }
+      },
+      "overrides": []
+    },
+    "gridPos": {
+      "h": 7,
+      "w": 6,
+      "x": 13,
+      "y": 0
+    },
+    "id": 10,
+    "links": [],
+    "options": {
+      "colorMode": "value",
+      "graphMode": "area",
+      "justifyMode": "auto",
+      "orientation": "auto",
+      "reduceOptions": {
+        "calcs": [
+          "mean"
+        ],
+        "fields": "",
+        "values": false
+      },
+      "textMode": "auto"
+    },
+    "pluginVersion": "8.5.3",
+    "targets": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "expr": "100 * ((sum(rate(http_request_duration_seconds_count{job=~\"$services\", path=~\"$paths\", method=~\"$methods\", http_status=\"500\"}[$window])) OR on() vector(0))\n/\nsum(rate(http_request_duration_seconds_count{job=~\"$services\", path=~\"$paths\", method=~\"$methods\"}[$window])))",
+        "interval": "",
+        "legendFormat": "",
+        "refId": "A"
+      }
+    ],
+    "title": "HTTP Error Rate",
+    "type": "stat"
+  },
+  {
+    "aliasColors": {},
+    "bars": true,
+    "dashLength": 10,
+    "dashes": false,
+    "datasource": {
+      "type": "prometheus",
+      "uid": "${datasource}"
+    },
+    "description": "",
+    "fill": 1,
+    "fillGradient": 0,
+    "gridPos": {
+      "h": 7,
+      "w": 20,
+      "x": 0,
+      "y": 7
+    },
+    "hiddenSeries": false,
+    "id": 19,
+    "legend": {
+      "avg": false,
+      "current": false,
+      "max": false,
+      "min": false,
+      "show": true,
+      "total": false,
+      "values": false
+    },
+    "lines": false,
+    "linewidth": 1,
+    "nullPointMode": "null",
+    "options": {
+      "alertThreshold": true
+    },
+    "percentage": false,
+    "pluginVersion": "8.5.3",
+    "pointradius": 2,
+    "points": false,
+    "renderer": "flot",
+    "seriesOverrides": [],
+    "spaceLength": 10,
+    "stack": true,
+    "steppedLine": false,
+    "targets": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "exemplar": true,
+        "expr": "sum(increase(http_request_duration_seconds_count{job=~'$services', path=~'$paths', method=~'$methods'}[$window])) by (http_status)",
+        "interval": "",
+        "legendFormat": "",
+        "refId": "A"
+      }
+    ],
+    "thresholds": [],
+    "timeRegions": [],
+    "title": "Response Status Code",
+    "tooltip": {
+      "shared": true,
+      "sort": 0,
+      "value_type": "individual"
+    },
+    "type": "graph",
+    "xaxis": {
+      "mode": "time",
+      "show": true,
+      "values": []
+    },
+    "yaxes": [
+      {
+        "format": "short",
+        "logBase": 1,
+        "show": true
+      },
+      {
+        "format": "short",
+        "logBase": 1,
+        "show": true
+      },
+    ],
+    "yaxis": {
+      "align": false
+    }
+  },
+  {
+    "aliasColors": {},
+    "bars": false,
+    "dashLength": 10,
+    "dashes": false,
+    "datasource": {
+      "type": "prometheus",
+      "uid": "${datasource}"
+    },
+    "fieldConfig": {
+      "defaults": {
+        "links": []
+      },
+      "overrides": []
+    },
+    "fill": 1,
+    "fillGradient": 0,
+    "gridPos": {
+      "h": 8,
+      "w": 24,
+      "x": 0,
+      "y": 14
+    },
+    "hiddenSeries": false,
+    "id": 8,
+    "legend": {
+      "avg": false,
+      "current": false,
+      "max": false,
+      "min": false,
+      "show": true,
+      "total": false,
+      "values": false,
+    },
+    "lines": true,
+    "linewidth": 1,
+    "links": [],
+    "nullPointMode": "null",
+    "options": {
+      "alertThreshold": true
+    },
+    "percentage": false,
+    "pluginVersion": "8.5.3",
+    "pointradius": 2,
+    "points": false,
+    "renderer": "flot",
+    "seriesOverrides": [],
+    "spaceLength": 10,
+    "stack": false,
+    "steppedLine": false,
+    "targets": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "expr": "sum(rate(http_request_duration_seconds_count{job=~'$services", path=~'$paths', method=~'$methods', http_status=~'$http_status'
+      }[$window
+      ])) by (${group_by:csv
+      })","format": "time_series","interval": "",
+      "intervalFactor": 1,
+      "legendFormat": "",
+      "refId": "A",
+    }
+  ],
+  "thresholds": [],
+  "timeRegions": [],
+  "title": "Requests per second",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "mode": "time",
+    "show": true,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "$$hashKey": "object:2687",
+      "format": "short",
+      "logBase": 1,
+      "show": true
+    },
+    {
+      "$$hashKey": "object:2688",
+      "format": "short",
+      "logBase": 1,
+      "show": true
+    }
+  ],
+  "yaxis": {
+    "align": false
+  }
+},
+{
+  "aliasColors": {},
+  "bars": false,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": {
+    "type": "prometheus",
+    "uid": "${datasource}"
+  },
+  "fieldConfig": {
+    "defaults": {
+      "links": []
+    },
+    "overrides": []
+  },
+  "fill": 1,
+  "fillGradient": 0,
+  "gridPos": {
+    "h": 8,
+    "w": 24,
+    "x": 0,
+    "y": 22
+  },
+  "hiddenSeries": false,
+  "id": 4,
+  "legend": {
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "show": true,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "null",
+  "options": {
+    "alertThreshold": true
+  },
+  "percentage": false,
+  "pluginVersion": "8.5.3",
+  "pointradius": 2,
+  "points": false,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "spaceLength": 10,
+  "stack": false,
+  "steppedLine": false,
+  "targets": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "expr": "histogram_quantile($quant, sum(rate(http_request_duration_seconds_bucket{job=~'$services", path=~'$paths", http_status=~'$http_status"
+    }[$window
+    ])) by (le, ${group_by:csv
+    }))","format": "time_series","interval": "",
+    "intervalFactor": 1,
+    "legendFormat": "",
+    "refId": "A"
+  }
+],
+"thresholds": [],
+"timeRegions": [],
+"title": "Response Time (Quantile)",
+"tooltip": {
+  "shared": true,
+  "sort": 0,
+  "value_type": "individual"
+},
+"type": "graph",
+"xaxis": {
+  "mode": "time",
+  "show": true,
+  "values": []
+},
+"yaxes": [
+  {
+    "$$hashKey": "object:3036",
+    "format": "short",
+    "logBase": 1,
+    "show": true
+  },
+  {
+    "$$hashKey": "object:3037",
+    "format": "short",
+    "logBase": 1,
+    "show": true
+  }
+],
+"yaxis": {
+  "align": false
+}
+},
+{
+"aliasColors": {},
+"bars": false,
+"dashLength": 10,
+"dashes": false,
+"datasource": {
+  "type": "prometheus",
+  "uid": "${datasource}"
+},
+"fieldConfig": {
+  "defaults": {
+    "links": []
+  },
+  "overrides": []
+},
+"fill": 1,
+"fillGradient": 0,
+"gridPos": {
+  "h": 8,
+  "w": 24,
+  "x": 0,
+  "y": 30
+},
+"hiddenSeries": false,
+"id": 6,
+"legend": {
+  "avg": false,
+  "current": false,
+  "max": false,
+  "min": false,
+  "show": true,
+  "total": false,
+  "values": false
+},
+"lines": true,
+"linewidth": 1,
+"links": [],
+"nullPointMode": "null",
+"options": {
+  "alertThreshold": true
+},
+"percentage": false,
+"pluginVersion": "8.5.3",
+"pointradius": 2,
+"points": false,
+"renderer": "flot",
+"seriesOverrides": [],
+"spaceLength": 10,
+"stack": false,
+"steppedLine": false,
+"targets": [
+  {
+    "datasource": {
+      "type": "prometheus",
+      "uid": "${datasource}"
+    },
+    "expr": "sum(rate(http_request_duration_seconds_sum{job=~\"$services\", path=~\"$paths\", http_status=~\"$http_status\"}[$window])) by (${group_by:csv})\n/\nsum(rate(http_request_duration_seconds_count{job=~\"$services\", path=~\"$paths\", http_status=~\"$http_status\"}[$window])) by (${group_by:csv})\n\n",
+    "format": "time_series",
+    "interval": "",
+    "intervalFactor": 1,
+    "legendFormat": "",
+    "refId": "A"
+  }
+],
+"thresholds": [],
+"timeRegions": [],
+"title": "Response Time (Average)",
+"tooltip": {
+  "shared": true,
+  "sort": 0,
+  "value_type": "individual"
+},
+"type": "graph",
+"xaxis": {
+  "mode": "time",
+  "show": true,
+  "values": []
+},
+"yaxes": [
+  {
+    "format": "short",
+    "logBase": 1,
+    "show": true
+  },
+  {
+    "format": "short",
+    "logBase": 1,
+    "show": true
+  }
+],
+"yaxis": {
+  "align": false
+}
+},
+{
+"aliasColors": {},
+"bars": false,
+"dashLength": 10,
+"dashes": false,
+"datasource": {
+  "type": "prometheus",
+  "uid": "${datasource}"
+},
+"fieldConfig": {
+  "defaults": {
+    "links": []
+  },
+  "overrides": []
+},
+"fill": 1,
+"fillGradient": 0,
+"gridPos": {
+  "h": 8,
+  "w": 24,
+  "x": 0,
+  "y": 38
+},
+"hiddenSeries": false,
+"id": 12,
+"legend": {
+  "avg": false,
+  "current": false,
+  "max": false,
+  "min": false,
+  "show": true,
+  "total": false,
+  "values": false
+},
+"lines": true,
+"linewidth": 1,
+"nullPointMode": "null",
+"options": {
+  "alertThreshold": true
+},
+"percentage": false,
+"pluginVersion": "8.5.3",
+"pointradius": 2,
+"points": false,
+"renderer": "flot",
+"seriesOverrides": [],
+"spaceLength": 10,
+"stack": false,
+"steppedLine": false,
+"targets": [
+  {
+    "datasource": {
+      "type": "prometheus",
+      "uid": "${datasource}"
+    },
+    "expr": "sum(increase(http_request_duration_seconds_count{job=~'$services", path=~'$paths", method=~'$methods", http_status=~'$http_status"
+  }[$window
+  ])) by (${group_by:csv
+  })","interval": "","legendFormat": "",
+  "refId": "A",
+}
+],
+"thresholds": [],
+"timeRegions": [],
+"title": "Request per interval",
+"tooltip": {
+"shared": true,
+"sort": 0,
+"value_type": "individual"
+},
+"type": "graph",
+"xaxis": {
+"mode": "time",
+"show": true,
+"values": []
+},
+"yaxes": [
+{
+  "$$hashKey": "object:1785",
+  "format": "short",
+  "logBase": 1,
+  "show": true
+},
+{
+  "$$hashKey": "object:1786",
+  "format": "short",
+  "logBase": 1,
+  "show": true
+}
+],
+"yaxis": {
+"align": false
+}
+},
+{
+"cards": {},
+"color": {
+"cardColor": "#b4ff00",
+"colorScale": "sqrt",
+"colorScheme": "interpolateGreens",
+"exponent": 0.5,
+"mode": "spectrum"
+},
+"dataFormat": "tsbuckets",
+"datasource": {
+"type": "prometheus",
+"uid": "${datasource}"
+},
+"gridPos": {
+"h": 9,
+"w": 24,
+"x": 0,
+"y": 46
+},
+"heatmap": {},
+"hideZeroBuckets": false,
+"highlightCards": true,
+"id": 2,
+"legend": {
+"show": false
+},
+"links": [],
+"reverseYBuckets": false,
+"targets": [
+{
+  "datasource": {
+    "type": "prometheus",
+    "uid": "${datasource}"
+  },
+  "expr": "sum(increase(http_request_duration_seconds_bucket{job=~'$services", path=~'$paths", method=~'$methods", http_status=~'$http_status"
+}[$window
+])) by (le)","format": "heatmap","interval": "",
+"intervalFactor": 1,
+"legendFormat": "{{le}}",
+"refId": "A",
+}
+],
+"title": "Respone Time (Flames)",
+"tooltip": {
+"show": true,
+"showHistogram": false
+},
+"type": "heatmap",
+"xAxis": {
+"show": true
+},
+"yAxis": {
+"decimals": 1,
+"format": "s",
+"logBase": 1,
+"show": true
+},
+"yBucketBound": "auto"
+}
+],
+"refresh": false,
+"schemaVersion": 36,
+"style": "dark",
+"tags": [],
+"templating": {
+"list": [
+{
+"current": {
+"selected": false,
+"text": "prometheus_ds",
+"value": "prometheus_ds"
+},
+"hide": 0,
+"includeAll": false,
+"multi": false,
+"name": "datasource",
+"options": [],
+"query": "prometheus",
+"queryValue": "",
+"refresh": 1,
+"regex": "prometheus_ds",
+"skipUrlSync": false,
+"type": "datasource"
+},
+{
+"auto": false,
+"auto_count": 30,
+"auto_min": "10s",
+"current": {
+"selected": false,
+"text": "1m",
+"value": "1m"
+},
+"hide": 0,
+"name": "window",
+"options": [
+{
+  "selected": true,
+  "text": "1m",
+  "value": "1m"
+},
+{
+  "selected": false,
+  "text": "3m",
+  "value": "3m"
+},
+{
+  "selected": false,
+  "text": "5m",
+  "value": "5m"
+},
+{
+  "selected": false,
+  "text": "10m",
+  "value": "10m"
+},
+{
+  "selected": false,
+  "text": "30m",
+  "value": "30m"
+},
+{
+  "selected": false,
+  "text": "1h",
+  "value": "1h"
+},
+{
+  "selected": false,
+  "text": "6h",
+  "value": "6h"
+},
+{
+  "selected": false,
+  "text": "12h",
+  "value": "12h"
+},
+{
+  "selected": false,
+  "text": "1d",
+  "value": "1d"
+}
+],
+"query": "1m,3m,5m,10m,30m,1h,6h,12h,1d",
+"refresh": 2,
+"skipUrlSync": false,
+"type": "interval"
+},
+{
+"current": {
+"selected": false,
+"text": "All",
+"value": "$__all"
+},
+"datasource": {
+"type": "prometheus",
+"uid": "P41401205F8FCD622"
+},
+"definition": "label_values(http_request_duration_seconds_bucket, job)",
+"hide": 0,
+"includeAll": true,
+"multi": true,
+"name": "services",
+"options": [],
+"query": {
+"query": "label_values(http_request_duration_seconds_bucket, job)",
+"refId": "StandardVariableQuery"
+},
+"refresh": 1,
+"regex": "",
+"skipUrlSync": false,
+"sort": 1,
+"tagValuesQuery": "",
+"tagsQuery": "",
+"type": "query",
+"useTags": false
+},
+{
+"current": {
+"selected": true,
+"text": [
+  "All"
+],
+"value": [
+  "$__all"
+]
+},
+"datasource": {
+"type": "prometheus",
+"uid": "P41401205F8FCD622"
+},
+"definition": "label_values(http_request_duration_seconds_bucket{job=~'$services"
+}, path)","hide": 0,"includeAll": true,
+"multi": true,
+"name": "paths",
+"options": [],
+"query": {
+"query": "label_values(http_request_duration_seconds_bucket{job=~'$services"
+}, path)","refId": "StandardVariableQuery"
+},
+"refresh": 1,
+"regex": "",
+"skipUrlSync": false,
+"sort": 1,
+"tagValuesQuery": "",
+"tagsQuery": "",
+"type": "query",
+"useTags": false
+},
+{
+"current": {
+"selected": true,
+"text": [
+"All"
+],
+"value": [
+"$__all"
+]
+},
+"datasource": {
+"type": "prometheus",
+"uid": "P41401205F8FCD622"
+},
+"definition": "label_values(http_request_duration_seconds_bucket{job=~'$services", path=~'$paths"
+}, method)","hide": 0,"includeAll": true,
+"multi": true,
+"name": "methods",
+"options": [],
+"query": {
+"query": "label_values(http_request_duration_seconds_bucket{job=~'$services", path=~'$paths"
+}, method)","refId": "prometheus-prod-methods-Variable-Query",
+},
+"refresh": 1,
+"regex": "",
+"skipUrlSync": false,
+"sort": 0,
+"tagValuesQuery": "",
+"tagsQuery": "",
+"type": "query",
+"useTags": false,
+},
+{
+"current": {
+"selected": true,
+"text": [
+"All"
+],
+"value": [
+"$__all"
+]
+},
+"datasource": {
+"type": "prometheus",
+"uid": "${datasource}"
+},
+"definition": "label_values(http_request_duration_seconds_bucket{job=~'$services", path=~'$paths", method=~'$methods"
+}, http_status)","hide": 0,"includeAll": true,
+"multi": true,
+"name": "http_status",
+"options": [],
+"query": {
+"query": "label_values(http_request_duration_seconds_bucket{job=~'$services", path=~'$paths", method=~'$methods"
+}, http_status)","refId": "StandardVariableQuery",
+},
+"refresh": 1,
+"regex": "",
+"skipUrlSync": false,
+"sort": 0,
+"tagValuesQuery": "",
+"tagsQuery": "",
+"type": "query",
+"useTags": false,
+},
+{
+"current": {
+"selected": false,
+"text": [
+"All"
+],
+"value": [
+"$__all"
+]
+},
+"hide": 0,
+"includeAll": true,
+"multi": true,
+"name": "group_by",
+"options": [
+{
+"selected": true,
+"text": "All",
+"value": "$__all"
+},
+{
+"selected": false,
+"text": "job",
+"value": "job"
+},
+{
+"selected": false,
+"text": "path",
+"value": "path"
+},
+{
+"selected": false,
+"text": "method",
+"value": "method"
+},
+{
+"selected": false,
+"text": "http_status",
+"value": "http_status",
+},
+],
+"query": "job, path, method, http_status",
+"skipUrlSync": false,
+"type": "custom",
+},
+{
+"current": {
+"selected": false,
+"text": "0.99",
+"value": "0.99"
+},
+"hide": 0,
+"includeAll": false,
+"label": "Quantile",
+"multi": false,
+"name": "quant",
+"options": [
+{
+"$$hashKey": "object:660",
+"selected": true,
+"text": "0.99",
+"value": "0.99",
+},
+{
+"$$hashKey": "object:661",
+"selected": false,
+"text": "0.95",
+"value": "0.95",
+},
+{
+"$$hashKey": "object:662",
+"selected": false,
+"text": "0.90",
+"value": "0.90",
+},
+{
+"$$hashKey": "object:663",
+"selected": false,
+"text": "0.75",
+"value": "0.75",
+},
+{
+"$$hashKey": "object:664",
+"selected": false,
+"text": "0.50",
+"value": "0.50",
+},
+],
+"query": "0.99, 0.95, 0.90, 0.75, 0.50",
+"skipUrlSync": false,
+"type": "custom",
+},
+],
+},
+"time": {
+"from": "now-1h",
+"to": "now"
+},
+"timepicker": {
+"refresh_intervals": [
+"5s",
+"10s",
+"30s",
+"1m",
+"5m",
+"15m",
+"30m",
+"1h",
+"2h",
+"1d"
+],
+"time_options": [
+"5m",
+"15m",
+"1h",
+"6h",
+"12h",
+"24h",
+"2d",
+"7d",
+"30d"
+],
+},
+"timezone": "",
+"title": "HTTP Metrics",
+"uid": "A7iknvlWk",
+"version": 6,
+"weekStart": "",
+}
